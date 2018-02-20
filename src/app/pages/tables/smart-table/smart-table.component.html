@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header>
+    PK
+  </nb-card-header>
+
+  <nb-card-body>
+    From <input #searchfrom class="search" type="text" placeholder="From Search">
+    To <input #searchto class="search" type="text" placeholder="To Search">
+    <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
