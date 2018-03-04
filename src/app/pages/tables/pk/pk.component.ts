@@ -122,7 +122,8 @@ export class PKComponent {
 
   loadData(){
     this.service.getreq("MST_CUSTOMER_PKs/all").subscribe((response)=>{
-      this.source.load(response.data);
+      const data = JSON.parse(response.data);
+      this.source.load(data);
       (error) => {
         console.log(error);
       }
