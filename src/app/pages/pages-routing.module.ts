@@ -10,6 +10,9 @@ const routes: Routes = [{
   children: [{
     path: 'dashboard',
     component: DashboardComponent,
+  },{
+    path: 'getdata',
+    loadChildren: './getdata/getdata.module#GetDataModule',
   }, {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',

@@ -2,14 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TablesComponent } from './tables.component';
-import { SmartTableComponent } from './smart-table/smart-table.component';
-
+import { PKComponent } from './pk/pk.component';
+import {SP3KComponent} from './sp3k/sp3k.component'
 const routes: Routes = [{
   path: '',
   component: TablesComponent,
   children: [{
-    path: 'PK',
-    component: SmartTableComponent,
+    path: 'pk',
+    component: PKComponent,
+  },
+  {
+    path: 'sp3k',
+    component: SP3KComponent,
   }],
 }];
 
@@ -21,5 +25,6 @@ export class TablesRoutingModule { }
 
 export const routedComponents = [
   TablesComponent,
-  SmartTableComponent,
+  PKComponent,
+  SP3KComponent
 ];

@@ -5,20 +5,24 @@ import { SmartTableService } from '../../../@core/data/smart-table.service';
 
 @Component({
   selector: 'ngx-smart-table',
-  templateUrl: './smart-table.component.html',
+  templateUrl: './SP3k.component.html',
   styles: [`
     nb-card {
       transform: translate3d(0, 0, 0);
     }
   `],
 })
-export class SmartTableComponent {
+export class SP3KComponent {
 
   settings = {
   actions:{
     add:false,
     edit:false,
     delete:false
+  },
+  pager:{
+    display: false,
+    perPage:30
   },
     columns: {
       customerId: {

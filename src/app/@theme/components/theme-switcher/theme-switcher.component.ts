@@ -26,6 +26,7 @@ export class ThemeSwitcherComponent implements OnInit {
   ngOnInit() {
     this.themeService.getJsTheme()
       .subscribe((theme: NbJSThemeOptions) => this.theme = theme);
+      
   }
 
   toggleTheme(theme: boolean) {
