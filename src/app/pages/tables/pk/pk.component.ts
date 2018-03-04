@@ -26,87 +26,87 @@ export class PKComponent {
     perPage:30
   },
     columns: {
-      customerId: {
+      CUSTOMER_ID: {
         title: 'CUSTOMER_ID',
         type: 'number',
       },
-      kodeCabang: {
+      KODE_CABANG: {
         title: 'KODE_CABANG',
         type: 'string',
       },
-      cabang: {
+      CABANG: {
         title: 'CABANG',
         type: 'string',
       },
-      kanwil: {
+      KANWIL: {
         title: 'KANWIL',
         type: 'string',
       },
-      noAplikasi: {
+      NO_APLIKASI: {
         title: 'NO_APLIKASI',
         type: 'string',
       },
-      namaDebitur: {
+      NAMA_DEBITUR: {
         title: 'NAMA_DEBITUR',
         type: 'string',
       },
-      gender: {
+      GENDER: {
         title: 'GENDER',
         type: 'string',
       },
-      alamatDebitur: {
+      ALAMAT_DEBITUR: {
         title: 'ALAMAT_DEBITUR',
         type: 'string',
       },
-      alamatAgunan: {
+      ALAMAT_AGUNAN: {
         title: 'ALAMAT_AGUNAN',
         type: 'string',
       },
-      tanggalLahir: {
+      TANGGAL_LAHIR: {
         title: 'TANGGAL_LAHIR',
         type: 'number',
       },
-      usia: {
+      USIA: {
         title: 'USIA',
         type: 'number',
       },
-      pkDate: {
+      PK_DATE: {
         title: 'PK_DATE',
         type: 'number',
       },
-      jangkaWaktu: {
+      JANGKA_WAKTU: {
         title: 'JANGKA_WAKTU',
         type: 'number',
       },
-      jenisKredit: {
+      JENIS_KREDIT: {
         title: 'JENIS_KREDIT',
         type: 'string',
       },
-      plafondKredit: {
+      PLAFOND_KREDIT: {
         title: 'PLAFOND_KREDIT',
         type: 'string',
       },
-      hargaBangunan: {
+      HARGA_BANGUNAN: {
         title: 'HARGA_BANGUNAN',
         type: 'number',
       },
-      pekerjaan: {
+      PEKERJAAN: {
         title: 'PEKERJAAN',
         type: 'string',
       },
-      asuransiJiwa: {
+      ASURANSI_JIWA: {
         title: 'ASURANSI_JIWA',
         type: 'number',
       },
-      asuransiFire: {
+      ASURANSI_FIRE: {
         title: 'ASURANSI_FIRE',
         type: 'number',
       },
-      asuransiKredit: {
+      ASURANSI_KREDIT: {
         title: 'ASURANSI_KREDIT',
         type: 'number',
       },
-      dateTimeCreate: {
+      DATE_TIME_CREATE: {
         title: 'DATE_TIME_CREATE',
         type: 'date-time',
       },
