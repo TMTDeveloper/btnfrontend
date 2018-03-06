@@ -10,6 +10,7 @@ import {BackendService} from '../../../@core/data/backend.service'
   styles: [`
     nb-card {
       transform: translate3d(0, 0, 0);
+ 
     }
   `],
 })
@@ -122,7 +123,7 @@ export class PKComponent {
 
   loadData(){
     this.service.getreq("MST_CUSTOMER_PKs/all").subscribe((response)=>{
-      const data = JSON.parse(response.data);
+      const data = response.data;
       this.source.load(data);
       (error) => {
         console.log(error);
