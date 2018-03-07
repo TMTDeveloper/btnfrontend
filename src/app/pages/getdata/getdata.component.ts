@@ -86,7 +86,7 @@ export class GetDataComponent {
       dateTo: moment(this.dateTo).format('YYYYMMDD')
     };
     let query = "";
-    for (const key in Object.keys(params)) {
+    for (let key in params) {
       query += encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) + "&";
     }
     this.service.postreq(type, query).subscribe((response) => {
