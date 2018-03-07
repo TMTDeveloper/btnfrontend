@@ -122,13 +122,13 @@ export class SP3KComponent {
 
 
   loadData(){
-    this.service.getreq("MST_CUSTOMER_PKs/all").subscribe((response)=>{
+    this.service.getreq("MST_CUSTOMER_SP3Ks/all").subscribe((response)=>{
       const data = response.data;
       this.source.load(data);
-      (error) => {
+     }, (error) => {
         console.log(error);
       }
-    })
+    )
   }
 
   onDeleteConfirm(event): void {

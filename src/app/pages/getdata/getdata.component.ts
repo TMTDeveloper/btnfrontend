@@ -3,13 +3,23 @@ import {
 } from '@angular/core';
 import {
   NgbDateStruct,
-  NgbCalendar
+  NgbCalendar,
+  NgbModalRef
 } from '@ng-bootstrap/ng-bootstrap';
 import {
   BackendService
 } from '../../@core/data/backend.service';
 import * as moment from 'moment';
-
+import 'rxjs/add/operator/map';
+import {
+  Observable
+} from 'rxjs/Rx';
+import {
+  NgProgress
+} from 'ngx-progressbar';
+import {
+  NgbModal
+} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ngx-getdata',
@@ -36,11 +46,12 @@ export class GetDataComponent {
   toDate: NgbDateStruct;
   today: string;
   onProcess: boolean;
+  activeModal: NgbModalRef;
 
   dateFrom: string;
   dateTo: string;
 
-  constructor(calendar: NgbCalendar, private service: BackendService) {
+  constructor(private modalService: NgbModal, calendar: NgbCalendar, public service: BackendService, public ngProgress: NgProgress) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getToday();
     this.today = calendar.getToday().toString();
@@ -55,20 +66,42 @@ export class GetDataComponent {
 
   }
 
+  showStaticModal() {
+    this.activeModal = this.modalService.open(ModalComponent, {
+      size: 'sm',
+      backdrop: 'static',
+      container: 'nb-layout',
+    });
+    this.activeModal.componentInstance.modalHeader = 'Notification';
+    this.activeModal.componentInstance.modalContent = `Please Wait While Data is Being Processed!`;
+  }
+
 
   getData(type) {
+    this.ngProgress.start();
+    this.showStaticModal();
     this.onProcess = true;
-    const data = {
+    const params = {
       datefrom: moment(this.dateFrom).format('YYYYMMDD'),
       dateTo: moment(this.dateTo).format('YYYYMMDD')
     };
-    this.service.postreq(type, data).subscribe((response) => {
+    var query = "";
+    for (let key in params) {
+      query += encodeURIComponent(key) + "=" + encodeURIComponent(params[key]) + "&";
+    }
+    this.service.postreq(type, query).subscribe((response) => {
+      console.log(response)
+      this.ngProgress.done();
       this.onProcess = false;
-      (error) => {
+      this.activeModal.componentInstance.closeModal();
+     }, (error) => {
+        this.ngProgress.done();
         this.onProcess = false;
         console.log(error);
+        
+      this.activeModal.componentInstance.closeModal();
       }
-    })
+    )
   }
 
   onDateChange(date: NgbDateStruct) {
@@ -87,4 +120,39 @@ export class GetDataComponent {
   isFrom = date => this.equals(date, this.fromDate);
   isTo = date => this.equals(date, this.toDate);
 
+}
+
+import {
+  NgbActiveModal
+} from '@ng-bootstrap/ng-bootstrap';
+
+@Component({
+  selector: 'ngx-modal',
+  template: `
+    <div class="modal-header">
+      <span>{{ modalHeader }}</span>
+      <button class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      {{ modalContent }}
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-md btn-primary" (click)="closeModal()">OK</button>
+    </div>
+  `,
+})
+export class ModalComponent {
+
+  modalHeader: string;
+  modalContent = `Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+    nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
+    nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.`;
+
+  constructor(public activeModal: NgbActiveModal) {}
+
+  closeModal() {
+    this.activeModal.close();
+  }
 }

@@ -124,11 +124,11 @@ export class PKComponent {
   loadData(){
     this.service.getreq("MST_CUSTOMER_PKs/all").subscribe((response)=>{
       const data = response.data;
-      this.source.load(data);
+      this.source.load(data);},
       (error) => {
         console.log(error);
       }
-    })
+    )
   }
 
 
