@@ -1,6 +1,13 @@
-import { Component } from '@angular/core';
-import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-import {BackendService} from '../../@core/data/backend.service';
+import {
+  Component
+} from '@angular/core';
+import {
+  NgbDateStruct,
+  NgbCalendar
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  BackendService
+} from '../../@core/data/backend.service';
 import * as moment from 'moment';
 
 
@@ -8,20 +15,20 @@ import * as moment from 'moment';
   selector: 'ngx-getdata',
   templateUrl: './getdata.component.html',
   styleUrls: ['./getdata.component.scss'],
-  
+
 })
 export class GetDataComponent {
 
   equals = (one: NgbDateStruct, two: NgbDateStruct) =>
-  one && two && two.year === one.year && two.month === one.month && two.day === one.day;
+    one && two && two.year === one.year && two.month === one.month && two.day === one.day;
 
- before = (one: NgbDateStruct, two: NgbDateStruct) =>
-  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-    ? false : one.day < two.day : one.month < two.month : one.year < two.year;
+  before = (one: NgbDateStruct, two: NgbDateStruct) =>
+    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day ?
+    false : one.day < two.day : one.month < two.month : one.year < two.year;
 
-after = (one: NgbDateStruct, two: NgbDateStruct) =>
-  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-    ? false : one.day > two.day : one.month > two.month : one.year > two.year;
+  after = (one: NgbDateStruct, two: NgbDateStruct) =>
+    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day ?
+    false : one.day > two.day : one.month > two.month : one.year > two.year;
 
   hoveredDate: NgbDateStruct;
 
@@ -30,35 +37,35 @@ after = (one: NgbDateStruct, two: NgbDateStruct) =>
   today: string;
   onProcess: boolean;
 
-  dateFrom :string;
-dateTo:string;
+  dateFrom: string;
+  dateTo: string;
 
-  constructor(calendar: NgbCalendar,private service: BackendService) {
+  constructor(calendar: NgbCalendar, private service: BackendService) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getToday();
     this.today = calendar.getToday().toString();
 
-    this.dateFrom = moment(calendar.getToday().toString(),'YYYY-M-D').format('YYYY-MM-DD');
-    this.dateTo = moment(calendar.getToday().toString(),'YYYY-M-D').format('YYYY-MM-DD');
-    
-    
+    this.dateFrom = moment(calendar.getToday().toString(), 'YYYY-M-D').format('YYYY-MM-DD');
+    this.dateTo = moment(calendar.getToday().toString(), 'YYYY-M-D').format('YYYY-MM-DD');
 
-  console.log(this.dateFrom);
-  console.log(this.dateTo);
-   
+
+
+    console.log(this.dateFrom);
+    console.log(this.dateTo);
+
   }
 
 
-  getData(type){
-    this.onProcess=true;
-    const data={
+  getData(type) {
+    this.onProcess = true;
+    const data = {
       datefrom: moment(this.dateFrom).format('YYYYMMDD'),
-      dateTo : moment(this.dateTo).format('YYYYMMDD')
+      dateTo: moment(this.dateTo).format('YYYYMMDD')
     };
-    this.service.postreq(type,data).subscribe((response)=>{
-      this.onProcess=false;
+    this.service.postreq(type, data).subscribe((response) => {
+      this.onProcess = false;
       (error) => {
-        this.onProcess=false;
+        this.onProcess = false;
         console.log(error);
       }
     })
