@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TablesComponent } from './tables.component';
 import { PKComponent } from './pk/pk.component';
-import {SP3KComponent} from './sp3k/sp3k.component'
+import {SP3KComponent} from './sp3k/sp3k.component';
 const routes: Routes = [{
   path: '',
   component: TablesComponent,

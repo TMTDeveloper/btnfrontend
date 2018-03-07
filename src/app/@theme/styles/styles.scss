@@ -10,11 +10,11 @@
 
 // install the framework and custom global styles
 @include nb-install() {
-
+$gcolor: nb-theme(color-fg-highlight);
   // framework global styles
   @include nb-theme-global();
   @include nb-auth-global();
 
   // loading progress bar
-  @include ngx-pace-theme();
+  @include ngx-pace-theme($gcolor);
 };

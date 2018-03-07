@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-md-6">
       <nb-card>
@@ -32,25 +33,30 @@
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label>From Date</label>
-                        <input type="date" class="form-control" id="inputFromDate" placeholder="yyyy-mm-dd">
+                        <input type="date" class="form-control" id="inputFromDate" placeholder="yyyy-mm-dd" [(ngModel)]="dateFrom">
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label >To Date</label>
-                        <input type="date" class="form-control" id="inputToDate" placeholder="yyyy-mm-dd">
+                        <input type="date" class="form-control" id="inputToDate" placeholder="yyyy-mm-dd" max = 'today' [(ngModel)]="dateTo">
                       </div>
                     </div>
                   </div>
             
 
-
-            <div class="form-group col">
-              <div class="offset-sm-3 col-sm-9">
-               <button type="submit" class="btn btn-primary" id="btnPK">Get PK</button>
-               <button type="submit" class="btn btn-primary" id="btnSP3K">Get SP3K</button>
+                  <div class="row justify-content-center">
+            <div class="form-group">
+              <div class="col-xl-4">
+               <button type="submit" class="btn btn-primary"  id="btnPK" (click)="getData('SOAP_CUSTOMERs/getListBTNConsumerPKfromto')" [disabled]="onProcess">Get PK</button>
                 </div>
               </div>
-        
+              <div class="form-group">
+                  <div class="col-xl-4">
+                   <button type="submit" class="btn btn-primary" id="btnSP3K" (click)="getData('SOAP_CUSTOMERs/getListBTNConsumerSP3Kfromto')" [disabled]="onProcess">Get SP3K</button>
+                    </div>
+                  </div>
+                  </div>
+      
         </nb-card-body>
       </nb-card>

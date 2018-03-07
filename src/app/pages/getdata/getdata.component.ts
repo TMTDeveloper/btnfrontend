@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
-
+import {BackendService} from '../../@core/data/backend.service';
+import * as moment from 'moment';
 
 
 @Component({
   selector: 'ngx-getdata',
   templateUrl: './getdata.component.html',
   styleUrls: ['./getdata.component.scss'],
+  
 })
 export class GetDataComponent {
 
@@ -25,10 +27,41 @@ after = (one: NgbDateStruct, two: NgbDateStruct) =>
 
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
+  today: string;
+  onProcess: boolean;
 
-  constructor(calendar: NgbCalendar) {
+  dateFrom :string;
+dateTo:string;
+
+  constructor(calendar: NgbCalendar,private service: BackendService) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getToday();
+    this.today = calendar.getToday().toString();
+
+    this.dateFrom = moment(calendar.getToday().toString(),'YYYY-M-D').format('YYYY-MM-DD');
+    this.dateTo = moment(calendar.getToday().toString(),'YYYY-M-D').format('YYYY-MM-DD');
+    
+    
+
+  console.log(this.dateFrom);
+  console.log(this.dateTo);
+   
+  }
+
+
+  getData(type){
+    this.onProcess=true;
+    const data={
+      datefrom: moment(this.dateFrom).format('YYYYMMDD'),
+      dateTo : moment(this.dateTo).format('YYYYMMDD')
+    };
+    this.service.postreq(type,data).subscribe((response)=>{
+      this.onProcess=false;
+      (error) => {
+        this.onProcess=false;
+        console.log(error);
+      }
+    })
   }
 
   onDateChange(date: NgbDateStruct) {

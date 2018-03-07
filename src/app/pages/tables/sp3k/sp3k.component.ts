@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import {BackendService} from '../../../@core/data/backend.service'
 
 import { SmartTableService } from '../../../@core/data/smart-table.service';
 
@@ -15,108 +16,119 @@ import { SmartTableService } from '../../../@core/data/smart-table.service';
 export class SP3KComponent {
 
   settings = {
-  actions:{
-    add:false,
-    edit:false,
-    delete:false
-  },
-  pager:{
-    display: false,
-    perPage:30
-  },
-    columns: {
-      customerId: {
-        title: 'CUSTOMER_ID',
-        type: 'number',
-      },
-      kodeCabang: {
-        title: 'KODE_CABANG',
-        type: 'string',
-      },
-      cabang: {
-        title: 'CABANG',
-        type: 'string',
-      },
-      kanwil: {
-        title: 'KANWIL',
-        type: 'string',
-      },
-      noAplikasi: {
-        title: 'NO_APLIKASI',
-        type: 'string',
-      },
-      namaDebitur: {
-        title: 'NAMA_DEBITUR',
-        type: 'string',
-      },
-      gender: {
-        title: 'GENDER',
-        type: 'string',
-      },
-      alamatDebitur: {
-        title: 'ALAMAT_DEBITUR',
-        type: 'string',
-      },
-      alamatAgunan: {
-        title: 'ALAMAT_AGUNAN',
-        type: 'string',
-      },
-      tanggalLahir: {
-        title: 'TANGGAL_LAHIR',
-        type: 'number',
-      },
-      usia: {
-        title: 'Usia',
-        type: 'number',
-      },
-      pkDate: {
-        title: 'Pk_DATE',
-        type: 'number',
-      },
-      jangkaWaktu: {
-        title: 'JANGKA_WAKTU',
-        type: 'number',
-      },
-      jenisKredit: {
-        title: 'JENIS_KREDIT',
-        type: 'string',
-      },
-      plafondKredit: {
-        title: 'PLAFOND_KREDIT',
-        type: 'string',
-      },
-      hargaBangunan: {
-        title: 'HARGA_BANGUNAN',
-        type: 'number',
-      },
-      pekerjaan: {
-        title: 'PEKERJAAN',
-        type: 'string',
-      },
-      asuransiJiwa: {
-        title: 'ASURANSI_JIWA',
-        type: 'number',
-      },
-      asuransiFire: {
-        title: 'ASURANSI_FIRE',
-        type: 'number',
-      },
-      asuransiKredit: {
-        title: 'ASURANSI_KREDIT',
-        type: 'number',
-      },
-      dateTimeCreate: {
-        title: 'DATE_TIME_CREATE',
-        type: 'date-time',
-      },
+    actions:{
+      add:false,
+      edit:false,
+      delete:false
     },
-  };
+    pager:{
+      display: false,
+      perPage:30
+    },
+      columns: {
+        CUSTOMER_ID: {
+          title: 'CUSTOMER_ID',
+          type: 'number',
+        },
+        KODE_CABANG: {
+          title: 'KODE_CABANG',
+          type: 'string',
+        },
+        CABANG: {
+          title: 'CABANG',
+          type: 'string',
+        },
+        KANWIL: {
+          title: 'KANWIL',
+          type: 'string',
+        },
+        NO_APLIKASI: {
+          title: 'NO_APLIKASI',
+          type: 'string',
+        },
+        NAMA_DEBITUR: {
+          title: 'NAMA_DEBITUR',
+          type: 'string',
+        },
+        GENDER: {
+          title: 'GENDER',
+          type: 'string',
+        },
+        ALAMAT_DEBITUR: {
+          title: 'ALAMAT_DEBITUR',
+          type: 'string',
+        },
+        ALAMAT_AGUNAN: {
+          title: 'ALAMAT_AGUNAN',
+          type: 'string',
+        },
+        TANGGAL_LAHIR: {
+          title: 'TANGGAL_LAHIR',
+          type: 'number',
+        },
+        USIA: {
+          title: 'USIA',
+          type: 'number',
+        },
+        SP3K_DATE: {
+          title: 'SP3K_DATE',
+          type: 'number',
+        },
+        JANGKA_WAKTU: {
+          title: 'JANGKA_WAKTU',
+          type: 'number',
+        },
+        JENIS_KREDIT: {
+          title: 'JENIS_KREDIT',
+          type: 'string',
+        },
+        PLAFOND_KREDIT: {
+          title: 'PLAFOND_KREDIT',
+          type: 'string',
+        },
+        HARGA_BANGUNAN: {
+          title: 'HARGA_BANGUNAN',
+          type: 'number',
+        },
+        PEKERJAAN: {
+          title: 'PEKERJAAN',
+          type: 'string',
+        },
+        ASURANSI_JIWA: {
+          title: 'ASURANSI_JIWA',
+          type: 'number',
+        },
+        ASURANSI_FIRE: {
+          title: 'ASURANSI_FIRE',
+          type: 'number',
+        },
+        ASURANSI_KREDIT: {
+          title: 'ASURANSI_KREDIT',
+          type: 'number',
+        },
+        DATE_TIME_CREATE: {
+          title: 'DATE_TIME_CREATE',
+          type: 'date-time',
+        },
+      },
+    };
+  
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private service: SmartTableService) {
-    const data = this.service.getData();
-    this.source.load(data);
+  constructor(private service: BackendService) {
+    this.loadData();
+  }
+
+
+  loadData(){
+    this.service.getreq("MST_CUSTOMER_PKs/all").subscribe((response)=>{
+      const data = response.data;
+      this.source.load(data);
+      (error) => {
+        console.log(error);
+      }
+    })
   }
 
   onDeleteConfirm(event): void {
